@@ -15,10 +15,6 @@ const (
 	BUFSIZE int    = 1500
 )
 
-type Request struct {
-	Action string
-}
-
 func main() {
 
 	iface := flag.String("i", "tun0", "tunnel interface")
