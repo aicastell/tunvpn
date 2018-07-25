@@ -94,7 +94,7 @@ func main() {
 			break
 		}
 
-		// decode IPv4 header
+		// decode IPv4 header (debug)
 		header, _ := ipv4.ParseHeader(outBytes[:rb])
 		fmt.Printf("Sending %d bytes to remote: %+v\n", rb, header)
 
