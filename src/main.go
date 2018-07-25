@@ -80,7 +80,11 @@ func main() {
 			}
 
 			// write to TUN interface
-			tun.Write(inBytes[:n])
+			wb, err := tun.Write(inBytes[:n])
+			if err != nil || wb == 0 {
+				fmt.Println("Error writting to tunnel: ", err)
+				continue
+			}
 		}
 	}()
 
@@ -88,18 +92,18 @@ func main() {
 	outBytes := make([]byte, BUFSIZE)
 	for {
 		// read from TUN interface
-		plen, err := tun.Read(outBytes)
-		if err != nil || plen == 0 {
-			fmt.Println("Error: ", err)
+		rb, err := tun.Read(outBytes)
+		if err != nil || rb == 0 {
+			fmt.Println("Error reading from tunnel: ", err)
 			break
 		}
 
 		// decode IPv4 header
-		header, _ := ipv4.ParseHeader(outBytes[:plen])
-		fmt.Printf("Sending to remote: %+v\n", header)
+		header, _ := ipv4.ParseHeader(outBytes[:rb])
+		fmt.Printf("Sending %d bytes to remote: %+v\n", rb, header)
 
 		// send to socket
-		n, err := listenConn.WriteToUDP(outBytes[:plen], remoteAddr)
+		n, err := listenConn.WriteToUDP(outBytes[:rb], remoteAddr)
 		if err != nil || n == 0 {
 			fmt.Println("Error: ", err)
 			continue
