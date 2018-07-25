@@ -22,12 +22,12 @@ Usage:
 
 In PC1:
 
-    $ sudo ./src -i tun0 -l 10.0.0.1/24 -p 4142 -s pc1.name
+    $ sudo ./src -i tun0 -l 10.0.0.1/24 -p 4142 -r pc1.name
 
 
 In PC2:
 
-    $ sudo ./src -i tun0 -l 10.0.0.2/24 -p 4142 -s pc2.name
+    $ sudo ./src -i tun0 -l 10.0.0.2/24 -p 4142 -r pc2.name
 
 
 After that, you can communicate PC1 and PC2 through using the IPs 10.0.0.1 and
