@@ -2,6 +2,8 @@ Simple TUN VPN
 
 Compilation:
 
+    $ git clone https://github.com/aicastell/tunvpn.git
+    $ cd src
     $ go get
     $ go build
 
