@@ -5,7 +5,7 @@ import (
 	"strings"
 	"syscall"
 	"unsafe"
-//	"crypto/aes"
+	//	"crypto/aes"
 )
 
 const (
@@ -32,11 +32,11 @@ func (d *device) Close() error {
 
 func (d *device) Read(p []byte) (int, error) {
 	return d.f.Read(p)
-    // Here buffer should be decrypted after reading from the tunnel
+	// Here buffer should be decrypted after reading from the tunnel
 }
 
 func (d *device) Write(p []byte) (int, error) {
-    // Here buffer should be encrypted before writting to the tunnel
+	// Here buffer should be encrypted before writting to the tunnel
 	return d.f.Write(p)
 }
 
@@ -56,9 +56,9 @@ func newTUN(name string) (Interface, error) {
 }
 
 type tuniface struct {
-	Name[0x10] byte
+	Name  [0x10]byte
 	Flags uint16
-	pad[0x28 - 0x10 - 2] byte
+	pad   [0x28 - 0x10 - 2]byte
 }
 
 // Helper func
@@ -74,4 +74,3 @@ func createInterface(fd uintptr, name string, flags uint16) (string, error) {
 
 	return strings.Trim(string(req.Name[:]), "\x00"), nil
 }
-
