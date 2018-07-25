@@ -8,7 +8,6 @@ import (
 	"net"
 	"runcmd"
 	"tuntap"
-    "encoding/json"
 )
 
 const (
@@ -17,7 +16,7 @@ const (
 )
 
 type Request struct {
-    Action string
+	Action string
 }
 
 func main() {
@@ -65,12 +64,12 @@ func main() {
 	go func() {
 		inBytes := make([]byte, BUFSIZE)
 		for {
-            // recv from socket
+			// recv from socket
 			n, addr, err := listenConn.ReadFromUDP(inBytes)
-            if err != nil || n == 0 {
-                fmt.Println("Error: ", err)
-                continue
-            }
+			if err != nil || n == 0 {
+				fmt.Println("Error: ", err)
+				continue
+			}
 
 			// decode IPv4 header (debug)
 			header, _ := ipv4.ParseHeader(inBytes[:n])
@@ -88,7 +87,7 @@ func main() {
 	// Main loop to process outgoing packets
 	outBytes := make([]byte, BUFSIZE)
 	for {
-        // read from TUN interface
+		// read from TUN interface
 		plen, err := tun.Read(outBytes)
 		if err != nil || plen == 0 {
 			fmt.Println("Error: ", err)
@@ -99,12 +98,11 @@ func main() {
 		header, _ := ipv4.ParseHeader(outBytes[:plen])
 		fmt.Printf("Sending to remote: %+v\n", header)
 
-        // send to socket
+		// send to socket
 		n, err := listenConn.WriteToUDP(outBytes[:plen], remoteAddr)
-        if err != nil || n == 0 {
-            fmt.Println("Error: ", err)
-            continue
-        }
+		if err != nil || n == 0 {
+			fmt.Println("Error: ", err)
+			continue
+		}
 	}
 }
-

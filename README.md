@@ -1,5 +1,10 @@
 Simple TUN VPN
 
+Compilation:
+
+    $ go get
+    $ go build
+
 Usage:
 
     ./src -h
@@ -17,18 +22,21 @@ Usage:
 
 In PC1:
 
-    $ ./src -i tun0 -l 10.0.0.1/24 -p 4142 -s pc1.name
+    $ sudo ./src -i tun0 -l 10.0.0.1/24 -p 4142 -s pc1.name
 
 
 In PC2:
 
-    $ ./src -i tun0 -l 10.0.0.2/24 -p 4142 -s pc2.name
+    $ sudo ./src -i tun0 -l 10.0.0.2/24 -p 4142 -s pc2.name
 
 
 After that, you can communicate PC1 and PC2 through using the IPs 10.0.0.1 and
 10.0.0.2. For example, you can send pings:
 
     pc1> ping 10.0.0.2
+
+
+
 
 
 
